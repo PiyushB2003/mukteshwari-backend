@@ -50,6 +50,29 @@ export const AddRequests = async (req, res) => {
     }
 }
 
+export const InsertRequests = (req, res) => {
+    const { user_id, event_id, date, status } = req.body;
+    console.log("Request body in InsertRequests: ", req.body);
+    
+    const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES (?, ?, ?, ?)';
+    db.query(sql, [user_id, event_id, date, status], (err, result) => {
+        if (err) throw err;
+        res.send('Request added...');
+    });
+}
+
+export const InsertRequestsInBulk = (req, res) => {
+    const requests = req.body;
+    console.log("Requests in InsertRequestsInBulk: ", requests);
+    
+    const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES ?';
+    const values = requests.map(req => [req.user_id, req.event_id, req.date, req.status]);
+    db.query(sql, [values], (err, result) => {
+        if (err) throw err;
+        res.send('Bulk requests added...');
+    });
+}
+
 export const UpdateRequests = (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
