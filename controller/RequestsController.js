@@ -52,24 +52,30 @@ export const AddRequests = async (req, res) => {
 
 export const InsertRequests = (req, res) => {
     const { user_id, event_id, date, status } = req.body;
-    console.log("Request body in InsertRequests: ", req.body);
-    
-    const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES (?, ?, ?, ?)';
-    db.query(sql, [user_id, event_id, date, status], (err, result) => {
-        if (err) throw err;
-        res.send('Request added...');
+
+    const query = 'INSERT INTO requests (user_id, event_id, date, status) VALUES (?, ?, ?, ?)';
+    db.query(query, [user_id, event_id, date, status], (err, result) => {
+        if (err) {
+            console.log("err", err);
+            return res.status(500).json({ message: 'Error updating user', success: false });
+        }
+
+        res.status(200).json({ message: 'Request status updated successfully', success: true });
     });
-}
+};
 
 export const InsertRequestsInBulk = (req, res) => {
     const requests = req.body;
-    console.log("Requests in InsertRequestsInBulk: ", requests);
-    
     const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES ?';
     const values = requests.map(req => [req.user_id, req.event_id, req.date, req.status]);
+
     db.query(sql, [values], (err, result) => {
-        if (err) throw err;
-        res.send('Bulk requests added...');
+        if (err) {
+            console.log("err", err);
+            return res.status(500).json({ message: 'Error updating user', success: false });
+        }
+
+        res.status(200).json({ message: 'Bulk requests added successfully', success: true });
     });
 }
 
