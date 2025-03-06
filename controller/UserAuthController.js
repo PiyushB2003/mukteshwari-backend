@@ -38,6 +38,7 @@ export const UserRegister = async (req, res) => {
     ) {
         return res.status(400).json({ message: "All fields are requiredss", success: false });
     }
+
     if (password !== confirm_password) {
         return res.status(400).json({ message: "Passwords do not match", success: false });
     }

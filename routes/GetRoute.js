@@ -1,6 +1,5 @@
 import express from "express";
 import {
-    GetAllUsers,
     GetBranches,
     GetBranchesByCity,
     GetBranchRequests, GetEvent, GetRequests, GetUsers
@@ -8,7 +7,6 @@ import {
 
 const GetRoutes = express.Router();
 
-GetRoutes.get("/all-users", GetAllUsers);
 GetRoutes.get("/users", GetUsers);
 GetRoutes.get("/get-branches", GetBranches);
 GetRoutes.get("/events", GetEvent);

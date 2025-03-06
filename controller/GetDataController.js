@@ -13,16 +13,6 @@ export const GetBranches = async (req, res) => {
     }
 }
 
-export const GetAllUsers = (req, res) => {
-    db.query('SELECT * FROM users', (err, results) => {
-        if (err) {
-            console.error("Error fetching users", err.message);
-            return res.status(500).json({ message: 'Server error', success: false });
-        }
-        res.status(200).json({ message: "Users fetched successsfully", users: results, success: true });
-    })
-}
-
 export const GetUsers = (req, res) => {
     const sql = 'SELECT * FROM users';
     try {

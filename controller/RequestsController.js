@@ -50,35 +50,6 @@ export const AddRequests = async (req, res) => {
     }
 }
 
-export const InsertRequests = (req, res) => {
-    const { user_id, event_id, date, status } = req.body;
-
-    const query = 'INSERT INTO requests (user_id, event_id, date, status) VALUES (?, ?, ?, ?)';
-    db.query(query, [user_id, event_id, date, status], (err, result) => {
-        if (err) {
-            console.log("err", err);
-            return res.status(500).json({ message: 'Error updating user', success: false });
-        }
-
-        res.status(200).json({ message: 'Request status updated successfully', success: true });
-    });
-};
-
-export const InsertRequestsInBulk = (req, res) => {
-    const requests = req.body;
-    const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES ?';
-    const values = requests.map(req => [req.user_id, req.event_id, req.date, req.status]);
-
-    db.query(sql, [values], (err, result) => {
-        if (err) {
-            console.log("err", err);
-            return res.status(500).json({ message: 'Error updating user', success: false });
-        }
-
-        res.status(200).json({ message: 'Bulk requests added successfully', success: true });
-    });
-}
-
 export const UpdateRequests = (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
@@ -105,5 +76,34 @@ export const UpdateBulkRequests = (req, res) => {
         console.log("Successfully updated bulk requests ", result);
 
         res.send({ message: 'Bulk requests status updated successfully' });
+    });
+}
+
+export const InsertRequests = (req, res) => {
+    const { user_id, event_id, date, status } = req.body;
+
+    const query = 'INSERT INTO requests (user_id, event_id, date, status) VALUES (?, ?, ?, ?)';
+    db.query(query, [user_id, event_id, date, status], (err, result) => {
+        if (err) {
+            console.log("err", err);
+            return res.status(500).json({ message: 'Error updating user', success: false });
+        }
+
+        res.status(200).json({ message: 'Request status updated successfully', success: true });
+    });
+};
+
+export const InsertRequestsInBulk = (req, res) => {
+    const requests = req.body;
+    const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES ?';
+    const values = requests.map(req => [req.user_id, req.event_id, req.date, req.status]);
+
+    db.query(sql, [values], (err, result) => {
+        if (err) {
+            console.log("err", err);
+            return res.status(500).json({ message: 'Error updating user', success: false });
+        }
+
+        res.status(200).json({ message: 'Bulk requests added successfully', success: true });
     });
 }

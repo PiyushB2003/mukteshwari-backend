@@ -30,7 +30,7 @@ db.getConnection((err) => {
 });
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("local backend!");
 });
 
 app.use("/auth", AuthBranchRoute);
