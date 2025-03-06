@@ -55,7 +55,7 @@ export const GetEvent = (req, res) => {
 
 export const GetRequests = (req, res) => {
     const query = `
-        SELECT requests.id, requests.user_id, requests.event_id, users.first_name AS firstName, users.last_name AS lastName, events.event_name AS eventName, requests.status, requests.date
+        SELECT requests.id, requests.user_id, requests.event_id, users.first_name AS firstName, users.last_name AS lastName, events.event_name AS eventName, events.recurrence_day, requests.status, requests.date
         FROM requests
         JOIN users ON requests.user_id = users.user_id
         JOIN events ON requests.event_id = events.event_id
