@@ -227,7 +227,7 @@ const GetBranchRequests = (req, res) => {
 // };
 
 
-export const GetBranchesByCity = async (req, res) => {
+const GetBranchesByCity = async (req, res) => {
     try {
         const query = `SELECT branch_city, branch_name, branch_id FROM branches ORDER BY branch_city`;
 

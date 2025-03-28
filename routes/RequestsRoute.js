@@ -1,7 +1,7 @@
 import express from "express";
 import {
     AddRequests, InsertRequests, InsertRequestsInBulk, UpdateBulkRequests, UpdateRequests
-} from "../controller/RequestsController.js";
+} from "../controllers/RequestsController.js";
 
 const RequestsRoute = express.Router();
 
