@@ -49,8 +49,8 @@ const BranchLogin = async (req, res) => {
                             { id: result[0].branch_id, branch_username: result[0].branch_username },
                             process.env.JWT_SECRET,
                             { expiresIn: "2h" }
-                        )
-                        res.status(200).json({ message: "Branch Login successful", success: true, branchToken: token, branchName: result[0].branch_name, branchId: result[0].branch_id });
+                        );
+                        res.status(200).json({ message: "Branch Login successful", success: true, branchToken: token, branchName: result[0].branch_name, branchId: result[0].branch_id, branchCity: result[0].branch_city });
                     } else {
                         res.status(401).json({ message: "Invalid credentials", success: false });
                     }

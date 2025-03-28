@@ -6,6 +6,7 @@ import AuthAdminRoute from "./routes/AdminAuth.js";
 import GetRoutes from "./routes/GetRoute.js";
 import AuthBranchRoute from "./routes/BranchAuth.js";
 import AuthUserRoute from "./routes/UserAuth.js";
+import RequestsRoute from "./routes/RequestsRoute.js";
 import EventRoute from "./routes/EventRoute.js";
 
 dotenv.config();
@@ -32,6 +33,7 @@ app.use("/auth", AuthBranchRoute);
 app.use("/auth", AuthUserRoute);
 app.use("/", EventRoute);
 app.use("/", GetRoutes);
+app.use("/", RequestsRoute);
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`App listening on port ${process.env.PORT || 3000}`);

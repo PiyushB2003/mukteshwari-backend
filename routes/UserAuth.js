@@ -1,9 +1,10 @@
 import express from 'express';
-import { UserLogin, UserRegister } from '../controllers/UserAuthController.js';
+import { checkPhoneNumber, UserLogin, UserRegister } from '../controllers/UserAuthController.js';
 
 const AuthUserRoute = express.Router();
 
 AuthUserRoute.post("/user-register", UserRegister);
 AuthUserRoute.post("/user-login", UserLogin);
+AuthUserRoute.post("/check-phone", checkPhoneNumber);
 
 export default AuthUserRoute;

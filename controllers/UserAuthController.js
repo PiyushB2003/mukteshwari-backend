@@ -11,7 +11,6 @@ const checkPhoneNumber = (req, res) => {
 
     db.query("SELECT * FROM users WHERE phone_number = ?", [phone_number], (err, result) => {
         if (err) {
-            console.log("Database error:", err);
             return res.status(500).json({ message: "Database error", success: false });
         }
 
@@ -23,6 +22,7 @@ const checkPhoneNumber = (req, res) => {
     });
 };
 
+// Changed
 const UserRegister = async (req, res) => {
     const { first_name, last_name, city, phone_number, password, branch_name } = req.body;
 
@@ -73,7 +73,7 @@ const UserRegister = async (req, res) => {
     }
 };
 
-export const loginAdmin = (req, res) => {
+const loginAdmin = (req, res) => {
     const { email, password } = req.body;
 
     console.log(`🔍 Checking admin login for: ${email}`);
@@ -128,13 +128,12 @@ const UserLogin = async (req, res) => {
             if (result.length > 0) {
                 const isPasswordValid = await bcrypt.compare(password, result[0].password);
                 if (isPasswordValid) {
-                    console.log("Login Successful")
                     const token = jwt.sign(
                         { id: result[0].user_id, phone_number: result[0].phone_number },
                         process.env.JWT_SECRET,
                         { expiresIn: "2h" }
                     )
-                    return res.status(200).json({ message: "User Login Successful", success: true, userToken: token, userId: result[0].user_id });
+                    return res.status(200).json({ message: "User Login Successful", success: true, userToken: token, userId: result[0].user_id, userNumber: result[0].phone_number, userName: result[0].first_name + " " + result[0].last_name });
                 } else {
                     return res.status(401).json({ message: "Invalid Credential", success: false });
                 }
@@ -148,5 +147,4 @@ const UserLogin = async (req, res) => {
     }
 }
 
-
-export { checkPhoneNumber, UserRegister, UserLogin };
+export { checkPhoneNumber, UserRegister, UserLogin, loginAdmin };
