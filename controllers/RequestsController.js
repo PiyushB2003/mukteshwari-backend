@@ -113,7 +113,7 @@ export const InsertRequestsInBulk = (req, res) => {
     db.query(sql, [values], (err, result) => {
         if (err) {
             console.error('Error inserting bulk requests:', err);
-            return res.status(500).send({ message: 'Failed to insert bulk requests', success: false });
+            return res.status(500).send({ message: 'Failed to insert bulk requests', success: false, error: err });
         }
         res.send({ message: 'Bulk requests added successfully', success: true });
     });
