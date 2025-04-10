@@ -107,14 +107,30 @@ export const InsertRequests = (req, res) => {
 export const InsertRequestsInBulk = (req, res) => {
     const requests = req.body;
 
+    // Check if any request has status 'accepted'
+    const hasAcceptedStatus = requests.some(req => req.status === 'accepted');
+    if (hasAcceptedStatus) {
+        return res.status(400).send({
+            message: 'Status of selected ids is already accepted',
+            success: false
+        });
+    }
+
     const sql = 'INSERT INTO requests (user_id, event_id, date, status) VALUES ?';
     const values = requests?.map(req => [req.user_id, req.event_id, req.date, req.status]);
 
     db.query(sql, [values], (err, result) => {
         if (err) {
             console.error('Error inserting bulk requests:', err);
-            return res.status(500).send({ message: 'Failed to insert bulk requests', success: false, error: err });
+            return res.status(500).send({
+                message: 'Failed to insert bulk requests',
+                success: false,
+                error: err
+            });
         }
-        res.send({ message: 'Bulk requests added successfully', success: true });
+        res.send({
+            message: 'Bulk requests added successfully',
+            success: true
+        });
     });
 }
